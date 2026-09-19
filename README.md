@@ -35,6 +35,29 @@ npm install
 npm run dev                            # http://localhost:5173
 ```
 
+### Services
+
+Postgres and Redis run in containers, never installed on the host — the container pins the
+exact version and extension set that CI and production use.
+
+```bash
+docker compose -f infra/docker-compose.yml up -d     # start
+docker compose -f infra/docker-compose.yml logs -f   # watch
+docker compose -f infra/docker-compose.yml down      # stop (data survives)
+docker compose -f infra/docker-compose.yml down -v   # stop AND wipe the volume
+```
+
+Once per fresh volume, enable the vector extension:
+
+```bash
+docker compose -f infra/docker-compose.yml exec db \
+  psql -U atlas -c "CREATE EXTENSION IF NOT EXISTS vector;"
+```
+
+The `devpassword` in the compose file is deliberate and safe: the container is bound to your
+laptop and holds throwaway data. Every credential that points at something real lives in
+`.env`, which is gitignored.
+
 ## Architecture
 
 Five tiers: ingestion → storage → API → counterfactual engine → client.
