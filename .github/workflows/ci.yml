@@ -51,6 +51,10 @@ jobs:
         uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
+          # Without this the action looks for uv.lock, which only exists in a uv
+          # *project*. This repo pins with `uv pip compile`-style requirements
+          # files instead, so point the cache key at those.
+          cache-dependency-glob: "backend/requirements*.txt"
 
       - name: Set up Python
         run: uv python install 3.12
