@@ -1,0 +1,32 @@
+[project]
+name = "counterfactual-atlas-backend"
+version = "0.1.0"
+description = "API and counterfactual engine for Counterfactual Atlas"
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/W pycodestyle, F pyflakes, I isort, B bugbear, UP pyupgrade,
+# SIM flake8-simplify, C4 comprehensions, ARG unused arguments
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "C4", "ARG"]
+ignore = ["E501"]  # the formatter owns line length
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ARG"]  # pytest fixtures look like unused arguments
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

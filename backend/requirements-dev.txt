@@ -1,0 +1,12 @@
+# Development-only dependencies. Never installed into the production image.
+
+pytest
+pytest-asyncio
+pytest-cov
+ruff
+mypy
+nbstripout
+httpx              # FastAPI's TestClient needs it even before the app does
+
+# --- added in later phases ---
+# locust           # P8 - load testing

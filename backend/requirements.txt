@@ -1,0 +1,35 @@
+# Production dependencies only. Installed into the deployed container.
+# Add a package the phase it is first used in, not before.
+
+# --- web layer (P2) ---
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+
+# --- database (P2) ---
+sqlalchemy
+alembic
+psycopg[binary]
+
+# --- cache (P2) ---
+redis
+
+# --- added in later phases, kept commented until the phase arrives ---
+# pgvector           # P5 - Vector(384) column type for SQLAlchemy
+# geoalchemy2        # P3 - PostGIS geometry types
+# arq                # P6 - async job queue on Redis
+# httpx              # P3 - async HTTP client, also FastAPI's test client
+# SPARQLWrapper      # P3 - Wikidata SPARQL endpoint
+# pandas             # P3 - ETL transform and data-quality reporting
+# dateparser         # P3 - messy historical dates: "c. 1347", "spring 1789"
+# rapidfuzz          # P3 - fuzzy matching for entity resolution
+# tenacity           # P3 - retry with exponential backoff
+# pillow             # P3 - image resizing for the media pipeline
+# anthropic          # P5 - LLM provider, behind our own interface module
+# sentence-transformers  # P5 - local embeddings, all-MiniLM-L6-v2
+# tiktoken           # P5 - token counting for per-session budgets
+# rank-bm25          # P5 - keyword half of hybrid search
+# instructor         # P5 - LLM output validated against a Pydantic schema
+# structlog          # P8 - structured JSON logging
+# sentry-sdk         # P8 - error tracking
